@@ -1,27 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 14:27:47 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/14 18:45:20 by francisco        ###   ########.fr       */
+/*   Created: 2023/01/13 18:27:24 by francisco         #+#    #+#             */
+/*   Updated: 2023/01/13 18:54:59 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	main(int argc, char **argv)
+char	*ft_strchr(const char *s, int c)
 {
-	int		fd;
-	t_map	*map;
+	int	counter;
 
-	(void) argc;
-	fd = open(argv[1], O_RDONLY);
-	map = ft_calloc(1, sizeof(t_map));
-	read_map(map, fd);
-	close(fd);
-	check_map(map);
-	free(map);
+	counter = 0;
+	while (s[counter] != '\0')
+	{
+		if (s[counter] == (char)c)
+		{
+			s += counter;
+			return ((char *)s);
+		}
+		counter++;
+	}
+	if (s[counter] == (char) c)
+	{
+		s += counter;
+		return ((char *)s);
+	}
+	return (NULL);
 }

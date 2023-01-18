@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 15:45:29 by francsan          #+#    #+#             */
-/*   Updated: 2022/11/03 17:49:24 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/13 18:21:22 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../includes/so_long.h"
 
 char	*ft_free(char *buffer, char *buf)
 {
@@ -106,23 +106,3 @@ char	*get_next_line(int fd)
 	buffer = ft_next(buffer);
 	return (line);
 }
-
-// #include <fcntl.h>
-// #include <stdio.h>
-
-// int	main()
-// {
-// 	int		fd;
-// 	int		i;
-// 	char	*line;
-
-// 	fd = open("1.txt", O_RDONLY);
-// 	i = 1;
-// 	while (i <= 12)
-// 	{
-// 		line = get_next_line(fd);
-// 		printf("%d %s\n", i++, line);
-// 		free(line);
-// 	}
-// 	close(fd);
-// }

@@ -2,6 +2,7 @@
 NAME		=	so_long
 CC			=	cc
 FLAGS		=	-Wall -Wextra -Werror
+MLX_FLAGS	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
 RM			=	rm -rf
 
 #FILES AND PATH
@@ -9,12 +10,13 @@ HEADER_SRCS	=	so_long.h
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
-MPATH_SRCS	=	main.c window.c
+MPATH_SRCS	=	main.c errors.c map.c
 MPATH_DIR	=	mandatory/
 MPATH		=	$(addprefix $(MPATH_DIR), $(MPATH_SRCS))
 OBJ_M		=	$(MPATH:.c=.o)
 
-FPATH_SRCS	=	ft_calloc.c
+FPATH_SRCS	=	ft_calloc.c ft_strchr.c ft_strjoin.c ft_strlen.c \
+				ft_split.c ft_strdup.c ft_strlcat.c get_next_line.c
 FPATH_DIR	=	functions/
 FPATH		=	$(addprefix $(FPATH_DIR), $(FPATH_SRCS))
 OBJ_F		=	$(FPATH:.c=.o)
@@ -27,7 +29,7 @@ LIB_MLX		=	$(PATH_MLX)/libmlx.a
 				@${CC} ${FLAGS} -Imlx -c $< -o $@
 
 $(NAME):		$(OBJ_M) $(OBJ_F) | $(LIB_MLX)
-				@$(CC) $(OBJ_M) $(OBJ_F) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+				@$(CC) $(OBJ_M) $(OBJ_F) $(MLX_FLAGS) -o $(NAME)
 				@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 $(LIB_MLX):

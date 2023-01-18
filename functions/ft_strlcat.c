@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   window.c                                           :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 14:33:02 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/10 12:49:01 by francisco        ###   ########.fr       */
+/*   Created: 2023/01/13 18:49:44 by francisco         #+#    #+#             */
+/*   Updated: 2023/01/13 18:50:10 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	close1(int keycode, t_pointers *p)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	(void) p;
-	if (keycode == KEY_ESC)
-		exit (EXIT_SUCCESS);
-	return (0);
-}
+	size_t	i;
+	size_t	j;
 
-int	close2(t_pointers *p)
-{
-	(void) p;
-	exit(EXIT_SUCCESS);
-	return (0);
+	i = ft_strlen(dst);
+	if (dstsize <= i)
+		return (dstsize + ft_strlen(src));
+	j = 0;
+	while (src[j] != '\0' && i < dstsize - 1)
+	{
+		dst[i] = src[j];
+		i++;
+		j++;
+	}
+	dst[i] = '\0';
+	return (ft_strlen(dst) + ft_strlen(&src[j]));
 }
