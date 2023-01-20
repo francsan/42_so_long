@@ -6,7 +6,7 @@
 /*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/18 00:59:22 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/20 19:09:48 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	error_msg(char *error);
 // map.c
 void	read_map(t_map *map, int fd);
 void	check_map_chars(t_map *map, t_d1 *d);
-int		check_map_valid(t_map *map);
+int		search_map(int x, int y, char **grid, t_d1 *d);
+int		check_map_valid(t_map *map, t_d1 *d);
 void	check_map(t_map *map);
 
 /* functions */

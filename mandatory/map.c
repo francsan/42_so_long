@@ -6,7 +6,7 @@
 /*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:20:52 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/18 01:00:19 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/20 19:08:39 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,46 +60,77 @@ void	check_map_chars(t_map *map, t_d1 *d)
 	}
 }
 
-int	search_map(int x, int y, char **grid)
+int	search_map(int x, int y, char **grid, t_d1 *d)
 {
 	char	up;
 	char	right;
 	char	down;
 	char	left;
+	int		i;
+	int		j;
 
 	up = grid[x][y - 1];
 	right = grid[x + 1][y];
 	down = grid[x][y + 1];
 	left = grid[x - 1][y];
-	if (grid[x][y] == 'E')
+	if (grid[x][y] == 'E' && d->collect == 0)
 		return (1);
-	if (grid[x][y] == '0' || grid[x][y] == 'P')
+	if (grid[x][y] == 'C')
+	{
+		d->collect -= 1;
+		i = 0;
+		while (grid[i])
+		{
+			j = 0;
+			while (grid[i][j])
+			{
+				if (grid[i][j] == 'X')
+					grid[i][j] = '0';
+				j++;
+			}
+			i++;
+		}
+	}
+	if (grid[x][y] == 'P' || grid[x][y] == '0' || grid[x][y] == 'C')
 		grid[x][y] = 'X';
 	if (up == '0' || up == 'C' || up == 'E')
-		if (search_map(x, y - 1, grid) == 1)
+		if (search_map(x, y - 1, grid, d) == 1)
 			return (1);
 	if (right == '0' || right == 'C' || right == 'E')
-		if (search_map(x + 1, y, grid) == 1)
+		if (search_map(x + 1, y, grid, d) == 1)
 			return (1);
 	if (down == '0' || down == 'C' || down == 'E')
-		if (search_map(x, y + 1, grid) == 1)
+		if (search_map(x, y + 1, grid, d) == 1)
 			return (1);
 	if (left == '0' || left == 'C' || left == 'E')
-		if (search_map(x - 1, y, grid) == 1)
+		if (search_map(x - 1, y, grid, d) == 1)
 			return (1);
 	return (0);
 }
 
-int	check_map_valid(t_map *map)
+int	check_map_valid(t_map *map, t_d1 *d)
 {
 	char	**grid;
 	int		i;
+	int		x;
+	int		y;
 
 	i = -1;
 	grid = ft_calloc(1, sizeof(map->grid));
 	while (map->grid[++i])
 		grid[i] = ft_strdup(map->grid[i]);
-	i = search_map(1, map->max_y - 1, grid);
+	grid[i] = NULL;
+	y = 0;
+	while (grid[y])
+	{
+		x = 0;
+		while (grid[y][x] && grid[y][x] != 'P')
+			x++;
+		if (grid[y][x] == 'P')
+			break;
+		y++;
+	}
+	i = search_map(x, y, grid, d);
 	free(grid);
 	if (i == 1)
 		return (1);
@@ -124,7 +155,7 @@ void	check_map(t_map *map)
 		error_msg(ERR_SE);
 	if (d->collect < 1)
 		error_msg(ERR_COL);
-	if (!check_map_valid(map))
+	if (!check_map_valid(map, d))
 		error_msg(ERR_PATH);
 	free(d);
 }
