@@ -6,7 +6,7 @@
 /*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/20 19:09:48 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/21 16:00:55 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,14 @@ typedef struct t_d1 {
 // errors.c
 void	error_msg(char *error);
 
-// map.c
-void	read_map(t_map *map, int fd);
+// map_utils.c
 void	check_map_chars(t_map *map, t_d1 *d);
+int		search_map_coordinate(int x, int y, char **grid, t_d1 *d);
 int		search_map(int x, int y, char **grid, t_d1 *d);
 int		check_map_valid(t_map *map, t_d1 *d);
+
+// map.c
+void	read_map(t_map *map, int fd);
 void	check_map(t_map *map);
 
 /* functions */

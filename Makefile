@@ -10,7 +10,7 @@ HEADER_SRCS	=	so_long.h
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
-MPATH_SRCS	=	main.c errors.c map.c
+MPATH_SRCS	=	main.c errors.c map.c map_utils.c
 MPATH_DIR	=	mandatory/
 MPATH		=	$(addprefix $(MPATH_DIR), $(MPATH_SRCS))
 OBJ_M		=	$(MPATH:.c=.o)
