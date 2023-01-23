@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/21 16:00:55 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/23 23:29:37 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 
 /* errors */
 
+# define ERR_FILE "Error: map file missing\n"
 # define ERR_CHAR "Error: map character isn't valid\n"
 # define ERR_BOUND "Error: map isn't square\n"
 # define ERR_BOUND1 "Error: map isn't walled correctly\n"
@@ -83,6 +84,12 @@ void	check_map(t_map *map);
 // ft_calloc.c
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_calloc(size_t count, size_t size);
+
+// ft_strarr_free.c
+void	ft_strarr_free(char **strs);
+
+// ft_strarr_copy.c
+char	**ft_strarr_copy(char **arr);
 
 // ft_split.c
 int		mem_size(char const *s, char c);

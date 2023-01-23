@@ -1,8 +1,13 @@
 #SETUP
+OS			=	$(shell uname)
 NAME		=	so_long
 CC			=	cc
 FLAGS		=	-Wall -Wextra -Werror
-MLX_FLAGS	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
+ifeq ($(OS), Linux)
+	MLX_FLAGS	=	-Lmlx_linux -lmlx_Linux -lX11 -lXext -lm -lz -O3
+else
+	MLX_FLAGS	=	-Lmlx -lmlx -framework OpenGL -framework AppKit
+endif
 RM			=	rm -rf
 
 #FILES AND PATH
@@ -16,12 +21,17 @@ MPATH		=	$(addprefix $(MPATH_DIR), $(MPATH_SRCS))
 OBJ_M		=	$(MPATH:.c=.o)
 
 FPATH_SRCS	=	ft_calloc.c ft_strchr.c ft_strjoin.c ft_strlen.c \
-				ft_split.c ft_strdup.c ft_strlcat.c get_next_line.c
+				ft_split.c ft_strdup.c ft_strlcat.c get_next_line.c \
+				ft_strarr_free.c ft_strarr_copy.c
 FPATH_DIR	=	functions/
 FPATH		=	$(addprefix $(FPATH_DIR), $(FPATH_SRCS))
 OBJ_F		=	$(FPATH:.c=.o)
 
-PATH_MLX	=	mlx/
+ifeq ($(OS), Linux)
+	PATH_MLX	=	mlx_linux/
+else
+	PATH_MLX	=	mlx/
+endif
 LIB_MLX		=	$(PATH_MLX)/libmlx.a
 
 #COMMANDS
@@ -43,7 +53,6 @@ clean:
 
 fclean:			clean
 				@$(RM) $(NAME)
-				@make clean -C $(PATH_MLX)
 				@echo "$(RED)all deleted!$(DEFAULT)"
 
 re:				fclean all

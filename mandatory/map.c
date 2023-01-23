@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:20:52 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/21 16:02:14 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/23 23:00:56 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,25 @@
 void	read_map(t_map *map, int fd)
 {
 	char	*read;
-	char	*temp;
+	char	*temp1;
+	char	*temp2;
 
 	read = get_next_line(fd);
-	temp = ft_strdup("");
+	temp2 = ft_strdup("");
 	map->max_y = -1;
 	while (read != NULL)
 	{
 		map->max_y++;
-		ft_strlcat(temp, read, (ft_strlen(temp) + ft_strlen(read)) + 1);
+		temp1 = ft_strjoin(temp2, read);
+		free(temp2);
+		temp2 = ft_strdup(temp1);
+		free(temp1);
 		free(read);
 		read = get_next_line(fd);
 	}
-	map->grid = ft_split(temp, '\n');
+	map->grid = ft_split(temp2, '\n');
 	map->max_x = ft_strlen(map->grid[0]) - 1;
-	free(temp);
+	free(temp2);
 	free(read);
 }
 

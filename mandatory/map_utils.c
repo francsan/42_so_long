@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 15:58:33 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/21 16:07:34 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/23 23:27:44 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,7 @@ int	check_map_valid(t_map *map, t_d1 *d)
 	int		x;
 	int		y;
 
-	i = -1;
-	grid = ft_calloc(1, sizeof(map->grid));
-	while (map->grid[++i])
-		grid[i] = ft_strdup(map->grid[i]);
-	grid[i] = NULL;
+	grid = ft_strarr_copy(map->grid);
 	y = 0;
 	while (grid[y])
 	{
@@ -108,7 +104,7 @@ int	check_map_valid(t_map *map, t_d1 *d)
 		y++;
 	}
 	i = search_map(x, y, grid, d);
-	free(grid);
+	ft_strarr_free(grid);
 	if (i == 1)
 		return (1);
 	return (0);
