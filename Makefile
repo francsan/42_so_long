@@ -49,6 +49,7 @@ all:			$(NAME)
 
 clean:
 				@$(RM) $(OBJ_M) $(OBJ_B) $(OBJ_F)
+				@make clean -C $(PATH_MLX)
 				@echo "$(YELLOW)object files deleted!$(DEFAULT)"
 
 fclean:			clean
