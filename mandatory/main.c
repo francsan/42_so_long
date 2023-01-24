@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:27:47 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/23 23:28:04 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/23 23:41:14 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv)
 	read_map(map, fd);
 	close(fd);
 	check_map(map);
+	build_map(map);
 	ft_strarr_free(map->grid);
 	free(map);
 	return (0);

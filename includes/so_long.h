@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/23 23:29:37 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/24 00:34:12 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@
 
 /* keycodes */
 
-# define KEY_ESC 53
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
+# define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
 
 /* structs */
 
@@ -64,10 +64,20 @@ typedef struct t_d1 {
 	char	c;
 } t_d1;
 
+typedef struct t_img {
+	void	*mlx;
+	void	*win;
+} t_img;
+
 /* mandatory */
 
 // errors.c
 void	error_msg(char *error);
+
+// game.c
+int		keyhook(int keycode, t_img *img);
+int		close_game(t_img *img);
+void	build_map(t_map *map);
 
 // map_utils.c
 void	check_map_chars(t_map *map, t_d1 *d);
