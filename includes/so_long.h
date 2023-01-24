@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/24 05:01:29 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/24 22:47:34 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,18 @@
 /* keycodes */
 
 // keycodes for linux
-// # define KEY_ESC 65307
-// # define KEY_W 119
-// # define KEY_A 97
-// # define KEY_S 115
-// # define KEY_D 100
+# define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
 
 // keycodes for macos
-# define KEY_ESC 53
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
+// # define KEY_ESC 53
+// # define KEY_W 13
+// # define KEY_A 0
+// # define KEY_S 1
+// # define KEY_D 2
 
 /* structs */
 
@@ -75,13 +75,9 @@ typedef struct t_d1 {
 typedef struct t_img {
 	void	*mlx;
 	void	*win;
-	void	*floor;
-	void	*mid_horizontal;
-	void	*mid_vertical;
-	void	*bottom_left;
-	void	*bottom_right;
-	void	*top_left;
-	void	*top_right;
+	char	c;
+	int		x;
+	int		y;
 } t_img;
 
 /* mandatory */
