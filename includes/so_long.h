@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/24 22:47:34 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/25 01:00:11 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,10 @@
 
 typedef struct t_map {
 	char	**grid;
+	char	up;
+	char	down;
+	char	right;
+	char	left;
 	int		max_x;
 	int		max_y;
 } t_map;
@@ -76,6 +80,8 @@ typedef struct t_img {
 	void	*mlx;
 	void	*win;
 	char	c;
+	int		w;
+	int		h;
 	int		x;
 	int		y;
 } t_img;
@@ -85,9 +91,18 @@ typedef struct t_img {
 // errors.c
 void	error_msg(char *error);
 
+// game_utils.c
+void	position_init(t_map *map, int x, int y);
+int		check_around_1(t_map *map, int x, int y);
+int		check_around_2(t_map *map, int x, int y);
+int		check_around_3(t_map *map, int x, int y);
+int		check_arround(t_map *map, int x, int y);
+
 // game.c
 int		keyhook(int keycode, t_img *img);
 int		close_game(t_img *img);
+void	**get_fence(t_img *img);
+void	put_map_image_basic(t_map *map, t_img *img, void **fence, void *grass);
 void	build_map(t_map *map);
 
 // map_utils.c
