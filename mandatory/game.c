@@ -3,20 +3,63 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 00:12:58 by francsan          #+#    #+#             */
-/*   Updated: 2023/01/25 01:02:40 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:42:29 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	keyhook(int keycode, t_img *img)
+int	check_possible(t_map *map, int keycode)
 {
-	(void) img;
+	if (keycode == KEY_W)
+		if (map->grid[map->player_y - 1][map->player_x] != '1')
+			return (1);
+	if (keycode == KEY_A)
+		if (map->grid[map->player_y][map->player_x - 1] != '1')
+			return (1);
+	if (keycode == KEY_S)
+		if (map->grid[map->player_y + 1][map->player_x] != '1')
+			return (1);
+	if (keycode == KEY_D)
+		if (map->grid[map->player_y][map->player_x + 1] != '1')
+			return (1);
+	return (0);
+}
+
+void	put_player_image(t_map *map, t_img *img, int keycode, void **player)
+{
+	if (keycode == KEY_W)
+		mlx_put_image_to_window(img->mlx, img->win, player[0], map->player_x * 64, map->player_y * 64);
+	if (keycode == KEY_A)
+		mlx_put_image_to_window(img->mlx, img->win, player[1], map->player_x * 64, map->player_y * 64);
+	if (keycode == KEY_S)
+		mlx_put_image_to_window(img->mlx, img->win, player[2], map->player_x * 64, map->player_y * 64);
+	if (keycode == KEY_D)
+		mlx_put_image_to_window(img->mlx, img->win, player[3], map->player_x * 64, map->player_y * 64);
+	else
+		mlx_put_image_to_window(img->mlx, img->win, player[2], map->player_x * 64, map->player_y * 64);
+}
+
+int	keyhook(int keycode, t_map *map, t_img *img, void **player)
+{
 	if (keycode == KEY_ESC)
 		exit(EXIT_SUCCESS);
+	if (keycode == KEY_W && map->player_y - 1 >= 0 && \
+	check_possible(map, KEY_W))
+		map->player_y--;
+	if (keycode == KEY_A && map->player_x - 1 >= 0 && \
+	check_possible(map, KEY_A))
+		map->player_x--;
+	if (keycode == KEY_S && map->player_y + 1 <= map->max_y && \
+	check_possible(map, KEY_S))
+		map->player_y++;
+	if (keycode == KEY_D && map->player_x + 1 <= map->max_x && \
+	check_possible(map, KEY_D))
+		map->player_x--;
+	put_player_image(map, img, keycode, player);
 	return (0);
 }
 
@@ -78,10 +121,25 @@ void	put_map_image_basic(t_map *map, t_img *img, void **fence, void *grass)
 	}
 }
 
+void	**get_player(t_img *img)
+{
+	void	**player;
+	int		w;
+	int		h;
+
+	player = ft_calloc(4, sizeof(void *));
+	player[0] = mlx_xpm_file_to_image(img->mlx, "imgs/player_up.xpm", &w, &h);
+	player[1] = mlx_xpm_file_to_image(img->mlx, "imgs/player_right.xpm", &w, &h);
+	player[2] = mlx_xpm_file_to_image(img->mlx, "imgs/player_down.xpm", &w, &h);
+	player[3] = mlx_xpm_file_to_image(img->mlx, "imgs/player_left.xpm", &w, &h);
+	return (player);
+}
+
 void	build_map(t_map *map)
 {
 	t_img	*img;
 	void	**fence;
+	void	**player;
 	void	*grass;
 
 	img = ft_calloc(1, sizeof(t_img));
@@ -89,9 +147,11 @@ void	build_map(t_map *map)
 	img->win = mlx_new_window(img->mlx, (map->max_x + 1) * 64, \
 	(map->max_y + 1) * 64, "so_long");
 	fence = get_fence(img);
+	player = get_player(img);
 	grass = mlx_xpm_file_to_image(img->mlx, "imgs/0.xpm", &img->w, &img->h);
 	put_map_image_basic(map, img, fence, grass);
-	mlx_key_hook(img->win, keyhook, &img);
+	put_player_image(map, img, 0, player);
+	mlx_key_hook(img->win, keyhook, "&map, &img, player");
 	mlx_hook(img->win, 17, 0L, close_game, &img);
 	mlx_loop(img->mlx);
 }

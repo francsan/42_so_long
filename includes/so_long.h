@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/25 01:00:11 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/26 21:42:39 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,18 @@
 /* keycodes */
 
 // keycodes for linux
-# define KEY_ESC 65307
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
+// # define KEY_ESC 65307
+// # define KEY_W 119
+// # define KEY_A 97
+// # define KEY_S 115
+// # define KEY_D 100
 
 // keycodes for macos
-// # define KEY_ESC 53
-// # define KEY_W 13
-// # define KEY_A 0
-// # define KEY_S 1
-// # define KEY_D 2
+# define KEY_ESC 53
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
 
 /* structs */
 
@@ -65,6 +65,8 @@ typedef struct t_map {
 	char	left;
 	int		max_x;
 	int		max_y;
+	int		player_x;
+	int		player_y;
 } t_map;
 
 typedef struct t_d1 {
@@ -99,7 +101,7 @@ int		check_around_3(t_map *map, int x, int y);
 int		check_arround(t_map *map, int x, int y);
 
 // game.c
-int		keyhook(int keycode, t_img *img);
+int		keyhook(int keycode, t_map *map, t_img *img, void **player);
 int		close_game(t_img *img);
 void	**get_fence(t_img *img);
 void	put_map_image_basic(t_map *map, t_img *img, void **fence, void *grass);

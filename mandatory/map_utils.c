@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 15:58:33 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/23 23:27:44 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/26 03:43:45 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int	check_map_valid(t_map *map, t_d1 *d)
 			break ;
 		y++;
 	}
+	map->player_x = x;
+	map->player_y = y;
 	i = search_map(x, y, grid, d);
 	ft_strarr_free(grid);
 	if (i == 1)
