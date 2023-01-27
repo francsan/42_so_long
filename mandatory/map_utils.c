@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 15:58:33 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/26 03:43:45 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/26 23:38:39 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	check_map_chars(t_map *map, t_d1 *d)
+void	check_map_chars(t_game *game, t_d1 *d)
 {
-	if ((int)ft_strlen(map->grid[d->y]) != map->max_x + 1)
+	if ((int)ft_strlen(game->grid[d->y]) != game->max_x + 1)
 		error_msg(ERR_BOUND);
 	d->x = 0;
-	while (map->grid[d->y][d->x])
+	while (game->grid[d->y][d->x])
 	{
-		d->c = map->grid[d->y][d->x];
+		d->c = game->grid[d->y][d->x];
 		if (d->c != '0' && d->c != '1')
 			if (d->c != 'C' && d->c != 'E' && d->c != 'P')
 				error_msg(ERR_CHAR);
@@ -29,10 +29,10 @@ void	check_map_chars(t_map *map, t_d1 *d)
 			d->exit++;
 		if (d->c == 'P')
 			d->player++;
-		if (d->y == 0 || d->y == map->max_y)
+		if (d->y == 0 || d->y == game->max_y)
 			if (d->c != '1')
 				error_msg(ERR_BOUND1);
-		if (d->x == 0 || d->x == map->max_x)
+		if (d->x == 0 || d->x == game->max_x)
 			if (d->c != '1')
 				error_msg(ERR_BOUND1);
 		d->x++;
@@ -85,14 +85,14 @@ int	search_map(int x, int y, char **grid, t_d1 *d)
 	return (0);
 }
 
-int	check_map_valid(t_map *map, t_d1 *d)
+int	check_map_valid(t_game *game, t_d1 *d)
 {
 	char	**grid;
 	int		i;
 	int		x;
 	int		y;
 
-	grid = ft_strarr_copy(map->grid);
+	grid = ft_strarr_copy(game->grid);
 	y = 0;
 	while (grid[y])
 	{
@@ -103,8 +103,8 @@ int	check_map_valid(t_map *map, t_d1 *d)
 			break ;
 		y++;
 	}
-	map->player_x = x;
-	map->player_y = y;
+	game->player_x = x;
+	game->player_y = y;
 	i = search_map(x, y, grid, d);
 	ft_strarr_free(grid);
 	if (i == 1)

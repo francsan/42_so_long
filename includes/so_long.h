@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/26 21:42:39 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/27 01:35:33 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,32 +42,39 @@
 /* keycodes */
 
 // keycodes for linux
-// # define KEY_ESC 65307
-// # define KEY_W 119
-// # define KEY_A 97
-// # define KEY_S 115
-// # define KEY_D 100
+# define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
 
 // keycodes for macos
-# define KEY_ESC 53
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
+// # define KEY_ESC 53
+// # define KEY_W 13
+// # define KEY_A 0
+// # define KEY_S 1
+// # define KEY_D 2
 
 /* structs */
 
-typedef struct t_map {
+typedef struct t_game {
+	void	**player;
+	void	**fence;
+	void	*grass;
+	void	*mlx;
+	void	*win;
 	char	**grid;
 	char	up;
 	char	down;
 	char	right;
 	char	left;
+	char	c;
 	int		max_x;
 	int		max_y;
 	int		player_x;
 	int		player_y;
-} t_map;
+	int		i;
+} t_game;
 
 typedef struct t_d1 {
 	int		x;
@@ -78,44 +85,40 @@ typedef struct t_d1 {
 	char	c;
 } t_d1;
 
-typedef struct t_img {
-	void	*mlx;
-	void	*win;
-	char	c;
-	int		w;
-	int		h;
-	int		x;
-	int		y;
-} t_img;
-
 /* mandatory */
 
 // errors.c
 void	error_msg(char *error);
 
 // game_utils.c
-void	position_init(t_map *map, int x, int y);
-int		check_around_1(t_map *map, int x, int y);
-int		check_around_2(t_map *map, int x, int y);
-int		check_around_3(t_map *map, int x, int y);
-int		check_arround(t_map *map, int x, int y);
+void	position_init(t_game *game, int x, int y);
+int		check_around_1(t_game *game, int x, int y);
+int		check_around_2(t_game *game, int x, int y);
+int		check_around_3(t_game *game, int x, int y);
+int		check_arround(t_game *game, int x, int y);
 
 // game.c
-int		keyhook(int keycode, t_map *map, t_img *img, void **player);
-int		close_game(t_img *img);
-void	**get_fence(t_img *img);
-void	put_map_image_basic(t_map *map, t_img *img, void **fence, void *grass);
-void	build_map(t_map *map);
+int		keyhook(int keycode, t_game *game);
+int		close_game(t_game *game);
+void	put_map_image_basic(t_game *game);
+void	build_map(t_game *game);
+
+// images.c
+void	get_fence(t_game *game);
+void	get_player(t_game *game);
+void	put_map_image_selector(t_game *game, int x, int y);
+void	put_map_image(t_game *game);
+void	put_player_image(t_game *game, int keycode);
 
 // map_utils.c
-void	check_map_chars(t_map *map, t_d1 *d);
+void	check_map_chars(t_game *game, t_d1 *d);
 int		search_map_coordinate(int x, int y, char **grid, t_d1 *d);
 int		search_map(int x, int y, char **grid, t_d1 *d);
-int		check_map_valid(t_map *map, t_d1 *d);
+int		check_map_valid(t_game *game, t_d1 *d);
 
 // map.c
-void	read_map(t_map *map, int fd);
-void	check_map(t_map *map);
+void	read_map(t_game *game, int fd);
+void	check_map(t_game *game);
 
 /* functions */
 

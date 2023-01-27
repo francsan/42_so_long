@@ -2,7 +2,7 @@
 OS			=	$(shell uname)
 NAME		=	so_long
 CC			=	cc
-FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror -g
 ifeq ($(OS), Linux)
 	MLX_FLAGS	=	-Lmlx_linux -lmlx_Linux -lX11 -lXext -lm -lz -O3
 else
@@ -15,7 +15,8 @@ HEADER_SRCS	=	so_long.h
 HEADER_DIR	=	includes/
 HEADER		=	$(addprefix $(HEADER_DIR), $(HEADER_SRCS))
 
-MPATH_SRCS	=	main.c errors.c game_utils.c game.c map_utils.c map.c
+MPATH_SRCS	=	main.c errors.c game_utils.c game.c images.c \
+				map_utils.c map.c
 MPATH_DIR	=	mandatory/
 MPATH		=	$(addprefix $(MPATH_DIR), $(MPATH_SRCS))
 OBJ_M		=	$(MPATH:.c=.o)

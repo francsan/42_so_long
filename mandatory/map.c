@@ -6,13 +6,13 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:20:52 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/24 00:14:00 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/26 23:37:41 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-void	read_map(t_map *map, int fd)
+void	read_map(t_game *game, int fd)
 {
 	char	*read;
 	char	*temp1;
@@ -20,10 +20,10 @@ void	read_map(t_map *map, int fd)
 
 	read = get_next_line(fd);
 	temp2 = ft_strdup("");
-	map->max_y = -1;
+	game->max_y = -1;
 	while (read != NULL)
 	{
-		map->max_y++;
+		game->max_y++;
 		temp1 = ft_strjoin(temp2, read);
 		free(temp2);
 		temp2 = ft_strdup(temp1);
@@ -31,13 +31,13 @@ void	read_map(t_map *map, int fd)
 		free(read);
 		read = get_next_line(fd);
 	}
-	map->grid = ft_split(temp2, '\n');
-	map->max_x = ft_strlen(map->grid[0]) - 1;
+	game->grid = ft_split(temp2, '\n');
+	game->max_x = ft_strlen(game->grid[0]) - 1;
 	free(temp2);
 	free(read);
 }
 
-void	check_map(t_map *map)
+void	check_map(t_game *game)
 {
 	t_d1	*d;
 
@@ -46,16 +46,16 @@ void	check_map(t_map *map)
 	d->exit = 0;
 	d->player = 0;
 	d->collect = 0;
-	while (map->grid[d->y])
+	while (game->grid[d->y])
 	{
-		check_map_chars(map, d);
+		check_map_chars(game, d);
 		d->y++;
 	}
 	if (d->exit != 1 || d->player != 1)
 		error_msg(ERR_SE);
 	if (d->collect < 1)
 		error_msg(ERR_COL);
-	if (!check_map_valid(map, d))
+	if (!check_map_valid(game, d))
 		error_msg(ERR_PATH);
 	free(d);
 }
