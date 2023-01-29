@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 00:12:58 by francsan          #+#    #+#             */
-/*   Updated: 2023/01/27 01:13:23 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/29 10:55:45 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int	key_hook(int keycode, t_game **game)
 		(*game)->player_x += 1;
 	put_map_image(*game);
 	put_player_image(*game, keycode);
+	if ((*game)->grid[(*game)->player_y][(*game)->player_x] == 'E' && (*game)->collectibles == 0)
+		close_game(*game);
 	return (0);
 }
 
@@ -67,6 +69,7 @@ void	build_map(t_game *game)
 	game->mlx = mlx_init();
 	game->win = mlx_new_window(game->mlx, (game->max_x + 1) * 64, \
 	(game->max_y + 1) * 64, "so_long");
+	get_terrain(game);
 	get_fence(game);
 	get_player(game);
 	put_map_image(game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:20:52 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/26 23:37:41 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/29 10:33:34 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	check_map(t_game *game)
 		error_msg(ERR_SE);
 	if (d->collect < 1)
 		error_msg(ERR_COL);
+	game->collectibles = d->collect;
 	if (!check_map_valid(game, d))
 		error_msg(ERR_PATH);
 	free(d);

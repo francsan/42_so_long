@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   images.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 00:36:07 by francsan          #+#    #+#             */
-/*   Updated: 2023/01/27 01:34:52 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/29 10:49:54 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
+
+void	get_terrain(t_game *game)
+{
+	int	w;
+	int	h;
+
+	game->terrain = ft_calloc(4, sizeof(void *));
+	game->terrain[0] = mlx_xpm_file_to_image(game->mlx, "imgs/0.xpm", &w, &h);
+	game->terrain[1] = mlx_xpm_file_to_image(game->mlx, "imgs/17.xpm", &w, &h);
+	game->terrain[2] = mlx_xpm_file_to_image(game->mlx, "imgs/18.xpm", &w, &h);
+	game->terrain[3] = mlx_xpm_file_to_image(game->mlx, "imgs/19.xpm", &w, &h);
+}
 
 void	get_fence(t_game *game)
 {
@@ -18,7 +30,6 @@ void	get_fence(t_game *game)
 	int	h;
 
 	game->fence = ft_calloc(17, sizeof(void *));
-	game->grass = mlx_xpm_file_to_image(game->mlx, "imgs/0.xpm", &w, &h);
 	game->fence[0] = mlx_xpm_file_to_image(game->mlx, "imgs/1.xpm", &w, &h);
 	game->fence[1] = mlx_xpm_file_to_image(game->mlx, "imgs/2.xpm", &w, &h);
 	game->fence[2] = mlx_xpm_file_to_image(game->mlx, "imgs/3.xpm", &w, &h);
@@ -62,13 +73,33 @@ void	put_map_image_selector(t_game *game, int x, int y)
 		mlx_put_image_to_window(game->mlx, game->win, \
 		game->fence[game->i - 1], (x * 64), (y * 64));
 	}
-	if (game->c == '0' || game->c == 'C' || game->c == 'E')
-		mlx_put_image_to_window(game->mlx, game->win, game->grass, \
+	else if (game->c == '0')
+		mlx_put_image_to_window(game->mlx, game->win, game->terrain[0], \
 		(x * 64), (y * 64));
-	if (game->c == 'P')
+	else if (game->c == 'C')
+	{
+		mlx_put_image_to_window(game->mlx, game->win, game->terrain[1], \
+		(x * 64), (y * 64));
+		if (game->player_y == y && game->player_x == x)
+		{
+			game->grid[y][x] = '0';
+			game->collectibles--;
+			put_map_image(game);
+		}
+	}
+	else if (game->c == 'P')
 	{
 		put_player_image(game, 42);
 		game->grid[y][x] = '0';
+	}
+	else if (game->c == 'E')
+	{
+		if (game->collectibles > 0)
+			mlx_put_image_to_window(game->mlx, game->win, game->terrain[2], \
+			(x * 64), (y * 64));
+		else if (game->collectibles == 0)
+			mlx_put_image_to_window(game->mlx, game->win, game->terrain[3], \
+			(x * 64), (y * 64));
 	}
 }
 

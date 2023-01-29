@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/27 01:35:33 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/29 10:32:46 by francisco        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,25 @@
 /* keycodes */
 
 // keycodes for linux
-# define KEY_ESC 65307
-# define KEY_W 119
-# define KEY_A 97
-# define KEY_S 115
-# define KEY_D 100
+// # define KEY_ESC 65307
+// # define KEY_W 119
+// # define KEY_A 97
+// # define KEY_S 115
+// # define KEY_D 100
 
 // keycodes for macos
-// # define KEY_ESC 53
-// # define KEY_W 13
-// # define KEY_A 0
-// # define KEY_S 1
-// # define KEY_D 2
+# define KEY_ESC 53
+# define KEY_W 13
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
 
 /* structs */
 
 typedef struct t_game {
-	void	**player;
+	void	**terrain;
 	void	**fence;
-	void	*grass;
+	void	**player;
 	void	*mlx;
 	void	*win;
 	char	**grid;
@@ -73,6 +73,7 @@ typedef struct t_game {
 	int		max_y;
 	int		player_x;
 	int		player_y;
+	int		collectibles;
 	int		i;
 } t_game;
 
@@ -104,6 +105,7 @@ void	put_map_image_basic(t_game *game);
 void	build_map(t_game *game);
 
 // images.c
+void	get_terrain(t_game *game);
 void	get_fence(t_game *game);
 void	get_player(t_game *game);
 void	put_map_image_selector(t_game *game, int x, int y);
