@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/29 10:32:46 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/31 16:39:00 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,18 @@
 /* keycodes */
 
 // keycodes for linux
-// # define KEY_ESC 65307
-// # define KEY_W 119
-// # define KEY_A 97
-// # define KEY_S 115
-// # define KEY_D 100
+# define KEY_ESC 65307
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
 
 // keycodes for macos
-# define KEY_ESC 53
-# define KEY_W 13
-# define KEY_A 0
-# define KEY_S 1
-# define KEY_D 2
+// # define KEY_ESC 53
+// # define KEY_W 13
+// # define KEY_A 0
+// # define KEY_S 1
+// # define KEY_D 2
 
 /* structs */
 
@@ -73,6 +73,7 @@ typedef struct t_game {
 	int		max_y;
 	int		player_x;
 	int		player_y;
+	int		moves;
 	int		collectibles;
 	int		i;
 } t_game;
@@ -99,16 +100,21 @@ int		check_around_3(t_game *game, int x, int y);
 int		check_arround(t_game *game, int x, int y);
 
 // game.c
-int		keyhook(int keycode, t_game *game);
+int		check_possible(t_game *game, int keycode);
+void	key_hook_check(int keycode, t_game *game);
+int		key_hook(int keycode, t_game **game);
 int		close_game(t_game *game);
-void	put_map_image_basic(t_game *game);
 void	build_map(t_game *game);
 
-// images.c
+// get_images.c
 void	get_terrain(t_game *game);
 void	get_fence(t_game *game);
 void	get_player(t_game *game);
-void	put_map_image_selector(t_game *game, int x, int y);
+
+// images.c
+void	selector_1(t_game *game, int x, int y);
+void	selector_2(t_game *game, int x, int y);
+void	put_move_counter(t_game *game);
 void	put_map_image(t_game *game);
 void	put_player_image(t_game *game, int keycode);
 
@@ -127,6 +133,11 @@ void	check_map(t_game *game);
 // ft_calloc.c
 void	*ft_memset(void *b, int c, size_t len);
 void	*ft_calloc(size_t count, size_t size);
+
+// ft_itoa.c
+char	*rev_num(char *num);
+void	put_num(int n, char *num);
+char	*ft_itoa(int n);
 
 // ft_strarr_free.c
 void	ft_strarr_free(char **strs);
