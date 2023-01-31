@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 15:41:46 by francsan          #+#    #+#             */
-/*   Updated: 2023/01/31 15:55:53 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:43:18 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	get_terrain(t_game *game)
 	int	h;
 
 	game->terrain = ft_calloc(4, sizeof(void *));
+	if (!game->terrain)
+		error_msg(ERR_MEM);
 	game->terrain[0] = mlx_xpm_file_to_image(game->mlx, "imgs/0.xpm", &w, &h);
 	game->terrain[1] = mlx_xpm_file_to_image(game->mlx, "imgs/17.xpm", &w, &h);
 	game->terrain[2] = mlx_xpm_file_to_image(game->mlx, "imgs/18.xpm", &w, &h);
@@ -30,6 +32,8 @@ void	get_fence(t_game *game)
 	int	h;
 
 	game->fence = ft_calloc(17, sizeof(void *));
+	if (!game->fence)
+		error_msg(ERR_MEM);
 	game->fence[0] = mlx_xpm_file_to_image(game->mlx, "imgs/1.xpm", &w, &h);
 	game->fence[1] = mlx_xpm_file_to_image(game->mlx, "imgs/2.xpm", &w, &h);
 	game->fence[2] = mlx_xpm_file_to_image(game->mlx, "imgs/3.xpm", &w, &h);
@@ -54,6 +58,8 @@ void	get_player(t_game *game)
 	int	h;
 
 	game->player = ft_calloc(4, sizeof(void *));
+	if (!game->player)
+		error_msg(ERR_MEM);
 	game->player[0] = mlx_xpm_file_to_image(game->mlx, \
 	"imgs/player_up.xpm", &w, &h);
 	game->player[1] = mlx_xpm_file_to_image(game->mlx, \

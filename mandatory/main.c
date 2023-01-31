@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:27:47 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/31 16:12:39 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:51:49 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error_msg(ERR_FILE);
 	fd = open(argv[1], O_RDONLY);
+	if (fd < 1)
+		error_msg(ERR_FILE);
 	game = ft_calloc(1, sizeof(t_game));
 	read_map(game, fd);
 	close(fd);

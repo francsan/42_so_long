@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/31 16:39:00 by francsan         ###   ########.fr       */
+/*   Updated: 2023/01/31 19:41:16 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define ERR_SE "Error: starting position and/or exit ammount isn't valid\n"
 # define ERR_COL "Error: number of collectibles isn't valid\n"
 # define ERR_PATH "Error: there isn't a valid path to the exit\n"
+# define ERR_MEM "Error: couldn't allocate memory\n"
 
 /* keycodes */
 
@@ -76,7 +77,7 @@ typedef struct t_game {
 	int		moves;
 	int		collectibles;
 	int		i;
-} t_game;
+}	t_game;
 
 typedef struct t_d1 {
 	int		x;
@@ -85,7 +86,7 @@ typedef struct t_d1 {
 	int		player;
 	int		collect;
 	char	c;
-} t_d1;
+}	t_d1;
 
 /* mandatory */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: francisco <francisco@student.42.fr>        +#+  +:+       +#+        */
+/*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:20:52 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/29 10:33:34 by francisco        ###   ########.fr       */
+/*   Updated: 2023/01/31 19:40:51 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	check_map(t_game *game)
 	t_d1	*d;
 
 	d = ft_calloc(1, sizeof(t_d1));
+	if (!d)
+		error_msg(ERR_MEM);
 	d->y = 0;
 	d->exit = 0;
 	d->player = 0;
