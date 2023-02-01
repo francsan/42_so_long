@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/02/01 19:37:16 by francsan         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:55:18 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 /* errors */
 
-# define ERR_FILE "Error: map file is missing\n"
+# define ERR_FILE "Error: map file is missing or there are more arguments than needed\n"
 # define ERR_FILE1 "Error: map file isn't valid\n"
 # define ERR_FILE2 "Error: map file provided is a directory\n"
 # define ERR_CHAR "Error: map character isn't valid\n"
