@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/01/31 19:41:16 by francsan         ###   ########.fr       */
+/*   Updated: 2023/02/01 19:37:16 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@
 
 /* errors */
 
-# define ERR_FILE "Error: map file missing\n"
+# define ERR_FILE "Error: map file is missing\n"
+# define ERR_FILE1 "Error: map file isn't valid\n"
+# define ERR_FILE2 "Error: map file provided is a directory\n"
 # define ERR_CHAR "Error: map character isn't valid\n"
 # define ERR_BOUND "Error: map isn't square\n"
 # define ERR_BOUND1 "Error: map isn't walled correctly\n"
@@ -126,6 +128,8 @@ int		search_map(int x, int y, char **grid, t_d1 *d);
 int		check_map_valid(t_game *game, t_d1 *d);
 
 // map.c
+int		open_map_file(char *file);
+void	read_map_lines(char **read, char **temp, int fd);
 void	read_map(t_game *game, int fd);
 void	check_map(t_game *game);
 
@@ -166,6 +170,9 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 
 // ft_strlen.c
 size_t	ft_strlen(const char *s);
+
+// ft_strncmp.c
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 // get_next_line.c
 char	*ft_free(char *buffer, char *buf);

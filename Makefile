@@ -23,7 +23,8 @@ OBJ_M		=	$(MPATH:.c=.o)
 
 FPATH_SRCS	=	ft_calloc.c ft_strchr.c ft_strjoin.c ft_strlen.c \
 				ft_split.c ft_strdup.c ft_strlcat.c get_next_line.c \
-				ft_strarr_free.c ft_strarr_copy.c ft_itoa.c
+				ft_strarr_free.c ft_strarr_copy.c ft_itoa.c \
+				ft_strncmp.c
 FPATH_DIR	=	functions/
 FPATH		=	$(addprefix $(FPATH_DIR), $(FPATH_SRCS))
 OBJ_F		=	$(FPATH:.c=.o)

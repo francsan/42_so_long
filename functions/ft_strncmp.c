@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/23 14:27:47 by francisco         #+#    #+#             */
-/*   Updated: 2023/02/01 19:17:10 by francsan         ###   ########.fr       */
+/*   Created: 2023/02/01 19:20:15 by francsan          #+#    #+#             */
+/*   Updated: 2023/02/01 19:20:31 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
-int	main(int argc, char **argv)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	int		fd;
-	t_game	*game;
+	unsigned char	*str1;
+	unsigned char	*str2;
 
-	if (argc != 2)
-		error_msg(ERR_FILE);
-	fd = open_map_file(argv[1]);
-	game = ft_calloc(1, sizeof(t_game));
-	read_map(game, fd);
-	close(fd);
-	check_map(game);
-	game->moves = 0;
-	build_map(game);
-	ft_strarr_free(game->grid);
-	free(game);
+	str1 = (unsigned char *)s1;
+	str2 = (unsigned char *)s2;
+	while ((*str1 || *str2) && n > 0)
+	{
+		if (*str1 != *str2)
+			return (*str1 - *str2);
+		n--;
+		str1++;
+		str2++;
+	}
 	return (0);
 }
