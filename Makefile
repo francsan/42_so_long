@@ -38,20 +38,20 @@ LIB_MLX		=	$(PATH_MLX)/libmlx.a
 
 #COMMANDS
 %.o: %.c
-				@${CC} ${FLAGS} -Imlx -c $< -o $@
+				@${CC} ${FLAGS} -Imlx_linux -c $< -o $@
 
 $(NAME):		$(OBJ_M) $(OBJ_F) | $(LIB_MLX)
 				@$(CC) $(OBJ_M) $(OBJ_F) $(MLX_FLAGS) -o $(NAME)
 				@echo "$(GREEN)$(NAME) created!$(DEFAULT)"
 
 $(LIB_MLX):
-				@make -C $(PATH_MLX)
+				@make --silent -C $(PATH_MLX)
 
 all:			$(NAME)
 
 clean:
 				@$(RM) $(OBJ_M) $(OBJ_B) $(OBJ_F)
-				@make clean -C $(PATH_MLX)
+				@make --silent clean -C $(PATH_MLX)
 				@echo "$(YELLOW)object files deleted!$(DEFAULT)"
 
 fclean:			clean

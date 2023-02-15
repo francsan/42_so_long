@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 00:12:58 by francsan          #+#    #+#             */
-/*   Updated: 2023/02/01 17:04:51 by francsan         ###   ########.fr       */
+/*   Updated: 2023/02/15 17:14:41 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,35 @@ void	key_hook_check(int keycode, t_game *game)
 int	key_hook(int keycode, t_game **game)
 {
 	if (keycode == KEY_ESC)
-		exit(EXIT_SUCCESS);
+		close_game(game);
 	key_hook_check(keycode, *game);
 	put_map_image(*game);
 	put_player_image(*game, keycode);
 	if ((*game)->grid[(*game)->player_y][(*game)->player_x] == 'E'
 		&& (*game)->collectibles == 0)
-		close_game(*game);
+		close_game(game);
 	return (0);
 }
 
-int	close_game(t_game *game)
+int	close_game(t_game **game)
 {
-	(void) game;
+	int	i;
+
+	i = 4;
+	while (--i >= 0)
+		mlx_destroy_image((*game)->mlx, (*game)->terrain[i]);
+	free((*game)->terrain);
+	i = 16;
+	while (--i >= 0)
+		mlx_destroy_image((*game)->mlx, (*game)->fence[i]);
+	free((*game)->fence);
+	i = 4;
+	while (--i >= 0)
+		mlx_destroy_image((*game)->mlx, (*game)->player[i]);
+	free((*game)->player);
+	mlx_destroy_window((*game)->mlx, (*game)->win);
+	ft_strarr_free((*game)->grid);
+	free(*game);
 	exit(EXIT_SUCCESS);
 	return (0);
 }
