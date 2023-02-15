@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/14 18:20:52 by francisco         #+#    #+#             */
-/*   Updated: 2023/02/15 17:24:12 by francsan         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:31:58 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	read_map(t_game *game, int fd)
 		if (temp[i] == '\n' && temp[i + 1] == '\n')
 		{
 			free(temp);
+			free(game);
 			error_msg(ERR_BOUND);
 		}
 	}
@@ -81,17 +82,8 @@ void	read_map(t_game *game, int fd)
 	free(temp);
 }
 
-void	check_map(t_game *game)
+static void	check_map_1(t_game *game, t_d1 *d)
 {
-	t_d1	*d;
-
-	d = ft_calloc(1, sizeof(t_d1));
-	if (!d)
-		error_msg_free(&game, ERR_MEM);
-	d->y = 0;
-	d->exit = 0;
-	d->player = 0;
-	d->collect = 0;
 	while (game->grid[d->y])
 	{
 		check_map_chars(game, d);
@@ -114,4 +106,18 @@ void	check_map(t_game *game)
 		error_msg_free(&game, ERR_PATH);
 	}
 	free(d);
+}
+
+void	check_map(t_game *game)
+{
+	t_d1	*d;
+
+	d = ft_calloc(1, sizeof(t_d1));
+	if (!d)
+		error_msg_free(&game, ERR_MEM);
+	d->y = 0;
+	d->exit = 0;
+	d->player = 0;
+	d->collect = 0;
+	check_map_1(game, d);
 }

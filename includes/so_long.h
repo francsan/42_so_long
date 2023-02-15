@@ -6,7 +6,7 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/23 14:50:56 by francisco         #+#    #+#             */
-/*   Updated: 2023/02/15 17:37:21 by francsan         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:22:22 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int		check_arround(t_game *game, int x, int y);
 int		check_possible(t_game *game, int keycode);
 void	key_hook_check(int keycode, t_game *game);
 int		key_hook(int keycode, t_game **game);
-int		close_game(t_game **game);
+int		close_game(t_game *game);
 void	build_map(t_game *game);
 
 // get_images.c

@@ -6,16 +6,45 @@
 /*   By: francsan <francsan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 15:58:33 by francisco         #+#    #+#             */
-/*   Updated: 2023/02/15 17:32:13 by francsan         ###   ########.fr       */
+/*   Updated: 2023/02/15 19:35:52 by francsan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/so_long.h"
 
+static void	check_map_chars_1(t_game *game, t_d1 *d)
+{
+	if (d->c == 'C')
+		d->collect++;
+	if (d->c == 'E')
+		d->exit++;
+	if (d->c == 'P')
+		d->player++;
+	if (d->y == 0 || d->y == game->max_y)
+	{
+		if (d->c != '1')
+		{
+			free(d);
+			error_msg_free(&game, ERR_BOUND1);
+		}
+	}
+	if (d->x == 0 || d->x == game->max_x)
+	{
+		if (d->c != '1')
+		{
+			free(d);
+			error_msg_free(&game, ERR_BOUND1);
+		}
+	}
+}
+
 void	check_map_chars(t_game *game, t_d1 *d)
 {
 	if ((int)ft_strlen(game->grid[d->y]) != game->max_x + 1)
+	{
+		free(d);
 		error_msg_free(&game, ERR_BOUND);
+	}
 	d->x = 0;
 	while (game->grid[d->y][d->x])
 	{
@@ -28,28 +57,7 @@ void	check_map_chars(t_game *game, t_d1 *d)
 				error_msg_free(&game, ERR_CHAR);
 			}
 		}
-		if (d->c == 'C')
-			d->collect++;
-		if (d->c == 'E')
-			d->exit++;
-		if (d->c == 'P')
-			d->player++;
-		if (d->y == 0 || d->y == game->max_y)
-		{
-			if (d->c != '1')
-			{
-				free(d);
-				error_msg_free(&game, ERR_BOUND1);
-			}
-		}
-		if (d->x == 0 || d->x == game->max_x)
-		{
-			if (d->c != '1')
-			{
-				free(d);
-				error_msg_free(&game, ERR_BOUND1);
-			}
-		}
+		check_map_chars_1(game, d);
 		d->x++;
 	}
 }
